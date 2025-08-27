@@ -43,7 +43,7 @@ extension BaseballGame {
         let guess = guess.trimmingCharacters(in: .whitespacesAndNewlines)
         
         // 유효성 검사
-        guard let _ = try? validate(guess) else {
+        guard let _ = try? validate(guess, with: answer) else {
             throw BaseballGameError.inValidInput
         }
         
@@ -73,8 +73,8 @@ extension BaseballGame {
     /// input 유효성 검사 메서드
     ///
     /// 모두 숫자가 아니거나 길이가 3이 아니라면 에러 방출
-    private func validate(_ guess: String) throws {
-        if guess.count != 3 {
+    private func validate(_ guess: String, with answer: String) throws {
+        if guess.count != answer.count {
             throw ValidateGuessError.invalidLength
         }
         
