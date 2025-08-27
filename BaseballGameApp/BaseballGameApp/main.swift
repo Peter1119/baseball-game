@@ -8,5 +8,6 @@
 import Foundation
 
 let getGameAnswer: GetGameAnswerProtocol = GetGameAnswer()
+let baseballGame = BaseballGame(getGameAnswer: getGameAnswer)
 
-print(getGameAnswer.execute())
+baseballGame.start()
