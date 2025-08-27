@@ -17,12 +17,16 @@ extension BaseballGameError: LocalizedError {
         switch self {
         case .inValidInput:
             return "올바르지 않은 입력값입니다."
-        case .notMatch(strike: let strike, ball: let ball):
-            if strike == 0 && ball == 0 {
-                return "Nothing"
-            } else {
-                return "스트라이크: \(strike), 볼: \(ball)"
+        case .notMatch(let strike, let ball):
+            var result = String()
+            if strike > 0 {
+                result += "\(strike)스트라이크 "
             }
+            
+            if ball > 0 {
+                result += "\(ball)볼"
+            }
+            return result.isEmpty ? "Nothing" : result.trimmingCharacters(in: .whitespaces)
         }
     }
 }
