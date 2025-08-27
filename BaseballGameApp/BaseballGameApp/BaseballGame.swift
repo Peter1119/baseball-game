@@ -27,6 +27,7 @@ public struct BaseballGame {
             
             do {
                 try progress(input)
+                print("정답입니다!")
                 break
             } catch let error {
                 print(error.localizedDescription)
@@ -66,7 +67,6 @@ extension BaseballGame {
         guard strikeCount == answer.count else {
             throw BaseballGameError.notMatch(strike: strikeCount, ball: ballCount)
         }
-        print("정답입니다!")
         return
     }
     
