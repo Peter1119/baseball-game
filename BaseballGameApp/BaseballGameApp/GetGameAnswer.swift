@@ -13,14 +13,6 @@ public protocol GetGameAnswerProtocol {
 
 public struct GetGameAnswer: GetGameAnswerProtocol {
     public func execute() -> String {
-        let firstNum: Int = Int.random(in: 1...9)
-        let otherNums = Array(0...9)
-            .filter({ $0 != firstNum })
-            .shuffled()
-            .prefix(2)
-        
-        let result = [firstNum] + otherNums
-        
-        return result.map { String($0) }.joined()
+        return Array(1...9).shuffled().prefix(3).map(String.init).joined()
     }
 }
