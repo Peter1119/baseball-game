@@ -1,5 +1,5 @@
 //
-//  GetGameAnswer.swift
+//  RandomNumberGenerater.swift
 //  BaseballGameApp
 //
 //  Created by 홍석현 on 8/27/25.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-public protocol GetGameAnswerProtocol {
+public protocol RandomNumberGenerating {
     func execute() -> String
 }
 
-public struct GetGameAnswer: GetGameAnswerProtocol {
+public struct RandomNumberGenerater: RandomNumberGenerating {
     private let numberOfDigits: Int = 3
 
     public func execute() -> String {
