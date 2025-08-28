@@ -7,6 +7,11 @@
 
 import Foundation
 
+public enum GameResult {
+    case completed
+    case quit
+}
+
 public protocol Game {
-    func play()
+    func play() -> GameResult
 }

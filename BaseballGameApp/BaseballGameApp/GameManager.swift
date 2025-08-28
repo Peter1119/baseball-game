@@ -34,9 +34,9 @@ public class GameManager {
     
     public func start() {
         print("환영합니다! 원하시는 번호를 입력해주세요")
-        print(GameState.allCases.map(\.description).joined(separator: " "))
 
         while currenctState != .quit {
+            print(GameState.allCases.map(\.description).joined(separator: " "))
             guard let input = readLine(),
                   let state = GameState(rawValue: input)
             else {
@@ -47,7 +47,13 @@ public class GameManager {
             switch state {
             case .start:
                 currenctState = .start
-                game.play()
+                let result = game.play()
+                switch result {
+                case .completed:
+                    print("게임이 완료되었습니다!\n")
+                case .quit:
+                    print("게임을 중단했습니다.\n")
+                }
             case .showRecords:
                 currenctState = .showRecords
                 print("기록을 보여주겠습니다.")

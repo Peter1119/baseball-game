@@ -16,7 +16,7 @@ public struct BaseballGame: Game {
         self.answer = getGameAnswer.execute()
     }
     
-    public func play() {
+    public func play() -> GameResult {
         print("< 게임을 시작합니다 >")
         while true {
             print("숫자를 입력하세요.")
@@ -28,11 +28,12 @@ public struct BaseballGame: Game {
             do {
                 try progress(input)
                 print("정답입니다!")
-                break
+                return .completed
             } catch let error {
                 print(error.localizedDescription)
             }
         }
+        return .quit
     }
 }
 
