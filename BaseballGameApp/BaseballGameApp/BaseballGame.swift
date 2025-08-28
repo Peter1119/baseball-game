@@ -8,12 +8,12 @@
 import Foundation
 
 public struct BaseballGame {
-    private let getGameAnswer: GetGameAnswerProtocol
+    private let answerGenerator: RandomNumberGenerating
     private let answer: String
     
-    public init(getGameAnswer: GetGameAnswerProtocol) {
-        self.getGameAnswer = getGameAnswer
-        self.answer = getGameAnswer.execute()
+    public init(answerGenerator: RandomNumberGenerating) {
+        self.answerGenerator = answerGenerator
+        self.answer = answerGenerator.execute()
     }
     
     public func start() {
