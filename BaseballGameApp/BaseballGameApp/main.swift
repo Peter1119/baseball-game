@@ -7,8 +7,7 @@
 
 import Foundation
 
-let getGameAnswer: GetGameAnswerProtocol = GetGameAnswer()
-let baseballGame = BaseballGame(getGameAnswer: getGameAnswer)
+let baseballGame = BaseballGame(answerGenerator: RandomNumberGenerater())
 let gameManager = GameManager(game: baseballGame)
 
 gameManager.start()
