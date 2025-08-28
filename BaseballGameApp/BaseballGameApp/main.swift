@@ -8,5 +8,6 @@
 import Foundation
 
 let baseballGame = BaseballGame(answerGenerator: RandomNumberGenerater())
+let gameManager = GameManager(game: baseballGame)
 
-baseballGame.start()
+gameManager.start()
