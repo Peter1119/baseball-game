@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct BaseballGame {
+public struct BaseballGame: Game {
     private let getGameAnswer: GetGameAnswerProtocol
     private let answer: String
     
@@ -16,7 +16,7 @@ public struct BaseballGame {
         self.answer = getGameAnswer.execute()
     }
     
-    public func start() {
+    public func play() {
         print("< 게임을 시작합니다 >")
         while true {
             print("숫자를 입력하세요.")

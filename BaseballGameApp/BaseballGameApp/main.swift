@@ -9,6 +9,6 @@ import Foundation
 
 let getGameAnswer: GetGameAnswerProtocol = GetGameAnswer()
 let baseballGame = BaseballGame(getGameAnswer: getGameAnswer)
-let gameManager = GameManager()
+let gameManager = GameManager(game: baseballGame)
 
 gameManager.start()

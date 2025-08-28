@@ -26,6 +26,11 @@ fileprivate enum GameState: String, CaseIterable {
 
 public class GameManager {
     private var currenctState: GameState?
+    private let game: Game
+    
+    init(game: Game) {
+        self.game = game
+    }
     
     public func start() {
         print("환영합니다! 원하시는 번호를 입력해주세요")
@@ -42,7 +47,7 @@ public class GameManager {
             switch state {
             case .start:
                 currenctState = .start
-                print("게임을 시작하겠습니다.")
+                game.play()
             case .showRecords:
                 currenctState = .showRecords
                 print("기록을 보여주겠습니다.")
