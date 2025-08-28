@@ -12,7 +12,11 @@ public protocol GetGameAnswerProtocol {
 }
 
 public struct GetGameAnswer: GetGameAnswerProtocol {
+    private let numberOfDigits: Int = 3
+
     public func execute() -> String {
-        return Array(1...9).shuffled().prefix(3).map(String.init).joined()
+        guard let firstNum = Array(1...9).randomElement() else { return String() }
+        let others = Array(0...9).filter { $0 != firstNum }.shuffled().prefix(numberOfDigits - 1)
+        return String(firstNum) + others.map(String.init).joined()
     }
 }
