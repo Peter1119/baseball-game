@@ -13,5 +13,6 @@ public enum GameResult {
 }
 
 public protocol Game {
-    func play() -> GameResult
+    var gameRecorder: GamePlayRecording? { get }
+    mutating func play() -> GameResult
 }

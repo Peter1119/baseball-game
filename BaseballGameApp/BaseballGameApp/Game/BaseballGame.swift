@@ -8,18 +8,25 @@
 import Foundation
 
 public struct BaseballGame: Game {
+    public var gameRecorder: (any GamePlayRecording)?
     private let answerGenerator: RandomNumberGenerating
     private let answer: String
+    private var tries: Int = 0
     
-    public init(answerGenerator: RandomNumberGenerating) {
+    public init(
+        answerGenerator: RandomNumberGenerating,
+        gameRecorder: (any GamePlayRecording)? = nil
+    ) {
         self.answerGenerator = answerGenerator
+        self.gameRecorder = gameRecorder
         self.answer = answerGenerator.execute()
     }
     
-    public func play() -> GameResult {
+    public mutating func play() -> GameResult {
         print("< 게임을 시작합니다 >")
         while true {
             print("숫자를 입력하세요.")
+            incrementTries()
             guard let input = readLine() else {
                 print("입력값 오류입니다. 다시 시도해주세요.")
                 break
@@ -27,13 +34,22 @@ public struct BaseballGame: Game {
             
             do {
                 try progress(input)
-                print("정답입니다!")
+                end()
                 return .completed
             } catch let error {
                 print(error.localizedDescription)
             }
         }
         return .quit
+    }
+    
+    private func end() {
+        print("정답입니다!")
+        gameRecorder?.execute(self.tries)
+    }
+    
+    private mutating func incrementTries() {
+        tries += 1
     }
 }
 

@@ -26,7 +26,7 @@ fileprivate enum GameState: String, CaseIterable {
 
 public class GameManager {
     private var currenctState: GameState?
-    private let game: Game
+    private var game: Game
     
     init(game: Game) {
         self.game = game
