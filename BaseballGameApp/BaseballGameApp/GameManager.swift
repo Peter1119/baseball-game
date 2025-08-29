@@ -27,9 +27,14 @@ fileprivate enum GameState: String, CaseIterable {
 public class GameManager {
     private var currenctState: GameState?
     private var gameFactory: GameFactory
+    private var gameRecordReader: GameRecordReading
     
-    init(gameFactory: GameFactory) {
+    init(
+        gameFactory: GameFactory,
+        gameRecordReader: GameRecordReading
+    ) {
         self.gameFactory = gameFactory
+        self.gameRecordReader = gameRecordReader
     }
     
     public func start() {
@@ -57,7 +62,7 @@ public class GameManager {
                 }
             case .showRecords:
                 currenctState = .showRecords
-                print("기록을 보여주겠습니다.\n")
+                print(gameRecordReader.execute())
             case .quit:
                 currenctState = .quit
                 print("종료하겠습니다.\n")

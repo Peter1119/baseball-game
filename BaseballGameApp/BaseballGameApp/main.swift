@@ -11,6 +11,9 @@ let gameFactory = BaseballGameFactory(
     randomNumberGenerator: RandomNumberGenerator(),
     gameRecorder: GamePlayRecorder()
 )
-let gameManager = GameManager(gameFactory: gameFactory)
+let gameManager = GameManager(
+    gameFactory: gameFactory,
+    gameRecordReader: GameRecordReader()
+)
 
 gameManager.start()

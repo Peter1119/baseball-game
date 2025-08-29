@@ -15,12 +15,7 @@ public protocol GamePlayRecording {
 
 public class GamePlayRecorder: GamePlayRecording {
     private var playCount: Int = 0
-    private let fileName = "game_records.json"
-    
-    private var filePath: String {
-        let currentDirectory = FileManager.default.currentDirectoryPath
-        return "\(currentDirectory)/\(fileName)"
-    }
+
     
     public init() {}
     
@@ -29,7 +24,6 @@ public class GamePlayRecorder: GamePlayRecording {
     }
     
     public func record() {
-        print("GamePlayRecorder: 실행하기 \(playCount)")
         let gameRecord = GameRecord(date: .now, tries: playCount)
         saveRecords(gameRecord)
     }
@@ -40,13 +34,17 @@ public class GamePlayRecorder: GamePlayRecording {
 }
 
 extension GamePlayRecorder {
-    private func saveRecords(_ record: GameRecord) {
-        var records = loadRecords()
-        records.append(record)
+    private func saveRecords(
+        _ record: GameRecord
+    ) {
+        var currentRecords = loadRecords()
+        currentRecords.append(record)
         
         do {
-            let data = try JSONEncoder().encode(records)
-            try data.write(to: URL(filePath: filePath))
+            let data = try JSONEncoder().encode(currentRecords)
+            try data.write(
+                to: URL(filePath: GameRecordFilePath.filePath)
+            )
             print("기록이 저장되었습니다.")
         } catch {
             print("저장 실패 하였습니다 \(error.localizedDescription)")
@@ -54,7 +52,9 @@ extension GamePlayRecorder {
     }
     
     private func loadRecords() -> [GameRecord] {
-        guard let data = try? Data(contentsOf: URL(filePath: filePath)) else { return [] }
+        guard let data = try? Data(
+            contentsOf: URL(filePath: GameRecordFilePath.filePath)
+        ) else { return [] }
         return (try? JSONDecoder().decode([GameRecord].self, from: data)) ?? []
     }
 }
