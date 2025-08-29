@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GameRecord {
-    var id: Int
-    var tryCount: Int
+struct GameRecord: Codable {
+    let date: Date
+    let tries: Int
 }
