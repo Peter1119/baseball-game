@@ -10,4 +10,5 @@ import Foundation
 public enum ValidateGuessError: Error {
     case invalidLength
     case notDigits
+    case inValidNumber
 }

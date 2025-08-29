@@ -7,7 +7,13 @@
 
 import Foundation
 
-let baseballGame = BaseballGame(answerGenerator: RandomNumberGenerater())
-let gameManager = GameManager(game: baseballGame)
+let gameFactory = BaseballGameFactory(
+    randomNumberGenerator: RandomNumberGenerator(),
+    gameRecorder: GamePlayRecorder()
+)
+let gameManager = GameManager(
+    gameFactory: gameFactory,
+    gameRecordReader: GameRecordReader()
+)
 
 gameManager.start()

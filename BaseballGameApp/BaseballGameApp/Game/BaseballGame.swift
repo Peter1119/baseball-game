@@ -7,12 +7,17 @@
 
 import Foundation
 
-public struct BaseballGame: Game {
+public class BaseballGame: Game {
+    public var gameRecorder: (any GamePlayRecording)?
     private let answerGenerator: RandomNumberGenerating
     private let answer: String
     
-    public init(answerGenerator: RandomNumberGenerating) {
+    public init(
+        answerGenerator: RandomNumberGenerating,
+        gameRecorder: (any GamePlayRecording)? = nil
+    ) {
         self.answerGenerator = answerGenerator
+        self.gameRecorder = gameRecorder
         self.answer = answerGenerator.execute()
     }
     
@@ -27,7 +32,7 @@ public struct BaseballGame: Game {
             
             do {
                 try progress(input)
-                print("정답입니다!")
+                end()
                 return .completed
             } catch let error {
                 print(error.localizedDescription)
@@ -35,12 +40,20 @@ public struct BaseballGame: Game {
         }
         return .quit
     }
+    
+    private func end() {
+        print("정답입니다!")
+        gameRecorder?.record()
+        gameRecorder?.reset()
+    }
 }
 
 extension BaseballGame {
     /// 게임 진행 로직
     ///
     private func progress(_ guess: String) throws {
+        // 게임 횟수 증가
+        self.gameRecorder?.incrementPlayCount()
         // input 빈칸과 줄바꿈 제거
         let guess = guess.trimmingCharacters(in: .whitespacesAndNewlines)
         
@@ -73,7 +86,7 @@ extension BaseballGame {
     
     /// input 유효성 검사 메서드
     ///
-    /// 모두 숫자가 아니거나 길이가 3이 아니라면 에러 방출
+    /// 모두 숫자가 아니거나 길이가 answer과 다르면 에러 방출
     private func validate(_ guess: String, with answer: String) throws {
         if guess.count != answer.count {
             throw ValidateGuessError.invalidLength
@@ -81,6 +94,10 @@ extension BaseballGame {
         
         if !guess.allSatisfy({ $0.isNumber }) {
             throw ValidateGuessError.notDigits
+        }
+        
+        if guess.first == "0" {
+            throw ValidateGuessError.inValidNumber
         }
     }
 }
