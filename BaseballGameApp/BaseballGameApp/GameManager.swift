@@ -40,7 +40,7 @@ public class GameManager {
             guard let input = readLine(),
                   let state = GameState(rawValue: input)
             else {
-                print("올바르지 않은 입력입니다.\n")
+                print("올바른 숫자를 입력해주세요! \n")
                 continue
             }
             
@@ -59,7 +59,7 @@ public class GameManager {
                 print("기록을 보여주겠습니다.\n")
             case .quit:
                 currenctState = .quit
-                print("종료하겠습니다.\n")
+                print("< 숫자 야구 게임을 종료합니다 >")
                 break
             }
         }
