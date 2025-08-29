@@ -8,13 +8,25 @@
 import Foundation
 
 public protocol GamePlayRecording {
-    func execute(_ playCount: Int)
+    func incrementPlayCount()
+    func record()
+    func reset()
 }
 
-public struct GamePlayRecorder: GamePlayRecording {
+public class GamePlayRecorder: GamePlayRecording {
+    private var playCount: Int = 0
+    
     public init() {}
     
-    public func execute(_ playCount: Int) {
+    public func incrementPlayCount() {
+        self.playCount += 1
+    }
+    
+    public func record() {
         print("GamePlayRecorder: 실행하기 \(playCount)")
+    }
+    
+    public func reset() {
+        self.playCount = 0
     }
 }

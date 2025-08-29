@@ -7,11 +7,10 @@
 
 import Foundation
 
-public struct BaseballGame: Game {
+public class BaseballGame: Game {
     public var gameRecorder: (any GamePlayRecording)?
     private let answerGenerator: RandomNumberGenerating
     private let answer: String
-    private var tries: Int = 0
     
     public init(
         answerGenerator: RandomNumberGenerating,
@@ -22,11 +21,10 @@ public struct BaseballGame: Game {
         self.answer = answerGenerator.execute()
     }
     
-    public mutating func play() -> GameResult {
+    public func play() -> GameResult {
         print("< 게임을 시작합니다 >")
         while true {
             print("숫자를 입력하세요.")
-            incrementTries()
             guard let input = readLine() else {
                 print("입력값 오류입니다. 다시 시도해주세요.")
                 break
@@ -45,11 +43,8 @@ public struct BaseballGame: Game {
     
     private func end() {
         print("정답입니다!")
-        gameRecorder?.execute(self.tries)
-    }
-    
-    private mutating func incrementTries() {
-        tries += 1
+        gameRecorder?.record()
+        gameRecorder?.reset()
     }
 }
 
@@ -57,6 +52,8 @@ extension BaseballGame {
     /// 게임 진행 로직
     ///
     private func progress(_ guess: String) throws {
+        // 게임 횟수 증가
+        self.gameRecorder?.incrementPlayCount()
         // input 빈칸과 줄바꿈 제거
         let guess = guess.trimmingCharacters(in: .whitespacesAndNewlines)
         

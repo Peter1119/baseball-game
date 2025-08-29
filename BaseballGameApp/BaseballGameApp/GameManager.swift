@@ -26,10 +26,10 @@ fileprivate enum GameState: String, CaseIterable {
 
 public class GameManager {
     private var currenctState: GameState?
-    private var game: Game
+    private var gameFactory: GameFactory
     
-    init(game: Game) {
-        self.game = game
+    init(gameFactory: GameFactory) {
+        self.gameFactory = gameFactory
     }
     
     public func start() {
@@ -47,6 +47,7 @@ public class GameManager {
             switch state {
             case .start:
                 currenctState = .start
+                var game = gameFactory.createGame()
                 let result = game.play()
                 switch result {
                 case .completed:
