@@ -86,7 +86,7 @@ extension BaseballGame {
     
     /// input 유효성 검사 메서드
     ///
-    /// 모두 숫자가 아니거나 길이가 3이 아니라면 에러 방출
+    /// 모두 숫자가 아니거나 길이가 answer과 다르면 에러 방출
     private func validate(_ guess: String, with answer: String) throws {
         if guess.count != answer.count {
             throw ValidateGuessError.invalidLength
@@ -94,6 +94,10 @@ extension BaseballGame {
         
         if !guess.allSatisfy({ $0.isNumber }) {
             throw ValidateGuessError.notDigits
+        }
+        
+        if guess.first == "0" {
+            throw ValidateGuessError.inValidNumber
         }
     }
 }
