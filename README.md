@@ -57,7 +57,7 @@ README.md
 
 ### 🧩 아키텍처 개요
 - **엔트리 포인트**: `main.swift`에서 의존성을 구성하고 `GameManager.start()` 호출
-- **오케스트레이터**: `GameManager`가 메뉴/흐름을 관리하며, `GameFactory`로 게임 인스턴스를 생성
+- **진행 관리자**: `GameManager`가 메뉴와 진행을 관리하고, `GameFactory`로 게임 인스턴스를 생성
 - **게임 도메인**: `Game` 프로토콜과 구현체 `BaseballGame`
 - **유틸리티**:
   - 난수 생성기: `RandomNumberGenerating` / `RandomNumberGenerator`
@@ -101,7 +101,7 @@ README.md
 - `GameRecordReader`
   - 기록 파일 로드 및 문자열 포맷 반환
 - `RandomNumberGenerator`
-  - 첫 자리 1~9, 나머지 0~9 중 중복 없이 섞어 3자리 생성
+  - 첫 자리 1 ~ 9, 나머지 0 ~ 9 중 중복 없이 섞어 3자리 생성
 
 ---
 
